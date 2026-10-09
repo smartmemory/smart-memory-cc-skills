@@ -3,6 +3,10 @@
 # design -- the authoritative run is the Forgejo one.
 name: smoke
 on: [push]
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   check:
     runs-on: ubuntu-latest
