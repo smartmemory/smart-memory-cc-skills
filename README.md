@@ -1,4 +1,4 @@
-# smartmemory-cc-skills
+# smart-memory-cc-skills
 
 SmartMemory for Claude Code, as slash commands.
 
