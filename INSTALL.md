@@ -2,7 +2,7 @@
 
 Three slash commands for Claude Code: `/recall`, `/uncompact`, `/remember`.
 Markdown-only — a thin presentation layer over SmartMemory's existing
-`memory_recall` / `memory_search` / `memory_add` MCP tools. No backend, no
+`memory_recall` / `memory_search` / `memory_save` MCP tools. No backend, no
 build step.
 
 ## Prerequisites

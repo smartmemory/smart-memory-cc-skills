@@ -19,7 +19,7 @@ detail is gone from context but still in SmartMemory.
 ## Preflight: detect the MCP server
 
 If **no SmartMemory MCP tool** (`memory_search` / `memory_recall` /
-`memory_add`) is available, do NOT silently return nothing. Print exactly:
+`memory_save`) is available, do NOT silently return nothing. Print exactly:
 
 > SmartMemory MCP server not detected. Install it with:
 > `pip install smartmemory` then add the MCP server to your Claude Code config and restart Claude Code. See https://docs.smartmemory.ai/smartmemory/intro

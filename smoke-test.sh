@@ -56,7 +56,7 @@ for s in "${SKILLS[@]}"; do
     fail "$s: frontmatter name '$NAME' != directory '$s'"; SFAIL=1
   fi
   # Body must reference the SmartMemory MCP tool the skill is meant to call.
-  if ! grep -q -e 'memory_recall' -e 'memory_search' -e 'memory_add' "$SK"; then
+  if ! grep -q -e 'memory_recall' -e 'memory_search' -e 'memory_save' "$SK"; then
     fail "$s: SKILL.md does not reference any SmartMemory MCP tool"; SFAIL=1
   fi
   # Must not silently degrade when MCP is absent.
