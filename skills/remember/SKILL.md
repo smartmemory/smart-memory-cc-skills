@@ -1,11 +1,11 @@
 ---
 name: remember
-description: Save a note, fact, decision, or piece of context to SmartMemory so it can be recalled later. Use when the user types /remember <text>, says "remember that ...", "make a note that ...", "save this", or wants something persisted across sessions. Stores via memory_add with origin cli:add and confirms the item ID and origin tier.
+description: Save a note, fact, decision, or piece of context to SmartMemory so it can be recalled later. Use when the user types /remember <text>, says "remember that ...", "make a note that ...", "save this", or wants something persisted across sessions. Stores via memory_save and confirms the item ID and save status.
 ---
 
 # /remember — save to SmartMemory
 
-You expose SmartMemory's `memory_add` MCP tool through the slash-command
+You expose SmartMemory's `memory_save` MCP tool through the slash-command
 picker. This is both a storage primitive and a teaching moment — make the
 confirmation human-readable so users learn what SmartMemory captured.
 
@@ -29,10 +29,12 @@ and stop.
 
 ## Tool call
 
-`memory_add(content="<text>", origin="cli:add")`
+`memory_save(content="<text>")`
 
-- Always pass `origin="cli:add"` so the item lands in origin tier 1 (user
-  content — recallable and searchable).
+- `memory_save` takes no `origin` argument. The server sets the origin (an
+  `mcp:` tag, tier 2: user content, recallable and searchable).
+- The result carries a save `status`: `saved`, `queued` (still processing),
+  `held` (held for review, with a reason) or `failed`. Report it as returned.
 - Scope is auto-resolved from the active SmartMemory session (local-mode or
   cloud workspace). Do not pass auth/workspace arguments. If the tool returns
   a scope/auth error, surface it verbatim and tell the user the note was NOT
@@ -44,10 +46,12 @@ After a successful call, confirm in human-readable form:
 
 > Saved to SmartMemory.
 > - **id:** `<item_id>`
-> - **origin:** `cli:add` (tier 1 — user content, recallable & searchable)
+> - **status:** `<status>` (`saved`, or `queued` while still processing)
 > - **content:** "<the text that was stored>"
 >
 > You can bring this back later with `/recall`.
 
 If the tool call fails for any reason, state clearly that the note was NOT
 saved and show the error — never report success without a returned item id.
+If the status is `held`, say the note was held for review and show the reason.
+If it is `failed`, say it was NOT saved.
