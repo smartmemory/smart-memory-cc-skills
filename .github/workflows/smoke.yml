@@ -2,7 +2,14 @@
 # GitHub Actions for this org is billing-blocked, so this stays red on GitHub by
 # design -- the authoritative run is the Forgejo one.
 name: smoke
-on: [push]
+on:
+  workflow_dispatch:
+    inputs:
+      sha:
+        description: 'Commit SHA to check out (empty = the dispatched ref)'
+        required: false
+        type: string
+        default: ''
 # Read-only GITHUB_TOKEN: nothing in this CI job writes to the repo or publishes (ACTIONS-LOCKDOWN-1).
 permissions:
   contents: read
@@ -17,6 +24,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
+          ref: ${{ inputs.sha || github.sha }}
           persist-credentials: false
       - name: Skills bundle sanity
         run: |
