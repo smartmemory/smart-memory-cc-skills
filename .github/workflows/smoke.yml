@@ -2,7 +2,8 @@
 # GitHub Actions for this org is billing-blocked, so this stays red on GitHub by
 # design -- the authoritative run is the Forgejo one.
 name: smoke
-on: [push]
+on:
+  workflow_dispatch:
 # Read-only GITHUB_TOKEN: nothing in this CI job writes to the repo or publishes (ACTIONS-LOCKDOWN-1).
 permissions:
   contents: read
