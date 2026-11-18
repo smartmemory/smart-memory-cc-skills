@@ -15,7 +15,7 @@ You expose SmartMemory's `memory_recall` MCP tool through the slash-command pick
 ## Preflight: detect the MCP server
 
 Check whether a SmartMemory MCP tool is available (look for tools named
-`memory_recall`, `memory_search`, or `memory_add`).
+`memory_recall`, `memory_search`, or `memory_save`).
 
 If **no SmartMemory MCP tool is present**, do NOT silently produce nothing.
 Print exactly this and stop:
